@@ -1,6 +1,5 @@
 import TokenArt from '../abis/TokenArt.json'
 import React, { Component } from 'react';
-import Identicon from 'identicon.js';
 import Navbar from './Navbar'
 import Main from './Main'
 import Web3 from 'web3';
@@ -57,23 +56,11 @@ class App extends Component {
     }
   }
 
-  captureFile = event => {
-
-    event.preventDefault()
-    const file = event.target.files[0]
-    const reader = new window.FileReader()
-    reader.readAsArrayBuffer(file)
-
-    reader.onloadend = () => {
-         this.setState({ buffer: Buffer(reader.result) })
-    console.log('buffer', this.state.buffer)  }
-  }
-
-  uploadImage = price => {
+  uploadImage = (price, buffer) => {
     console.log("Submitting file to ipfs...")
 
     //adding file to the IPFS
-    ipfs.add(this.state.buffer, (error, result) => {
+    ipfs.add(buffer, (error, result) => {
       console.log('Ipfs result', result)
       if(error) {
         console.error(error)
@@ -82,9 +69,9 @@ class App extends Component {
 
       this.setState({ loading: true })
       this.state.tokenArt.methods.uploadImage(result[0].hash, price).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.setState({ loading: false })
-      // refresh
-      window.location.reload(false);
+        this.setState({ loading: false })
+        // refresh
+        window.location.reload(false);
       })
     })
   }
@@ -132,7 +119,6 @@ class App extends Component {
     }
 
     this.uploadImage = this.uploadImage.bind(this)
-    this.captureFile = this.captureFile.bind(this)
     this.filterNames = this.filterNames.bind(this);
     this.getValueInput = this.getValueInput.bind(this);
     this.buyNFT = this.buyNFT.bind(this);
@@ -146,7 +132,6 @@ class App extends Component {
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main
               images={this.state.images}
-              captureFile={this.captureFile}
               uploadImage={this.uploadImage}
               filterNames={this.filterNames}
               getValueInput={this.getValueInput}

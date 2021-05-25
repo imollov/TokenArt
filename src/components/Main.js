@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Identicon from 'identicon.js';
+import MemeMaker from './MemeMaker';
 import info from '../InfoIconBlue.jpg';
 
 class Main extends Component {
@@ -13,32 +14,7 @@ class Main extends Component {
             <div className="content mr-auto ml-auto">
               <p>&nbsp;</p>
 
-              <h2> Mint an NFT &nbsp;
-                 <img src={info} height="21"
-                    onClick={(event) => {
-                    alert("To mint an NFT, enter the price you would like to sell it for in ETH and upload the image. You can filter by the wallet address of an owner of an NFT and purchase by clicking on the Buy button.  Purchasing an NFT will transfer ownership to your wallet address.")
-                  }}
-                 />
-              </h2>
-              <form onSubmit={(event) => {
-                event.preventDefault()
-                const price = this.priceInput.value
-                this.props.uploadImage(price)
-              }} >
-                <input type='file' accept=".jpg, .jpeg, .png, .bmp, .gif" onChange={this.props.captureFile} />
-                  <div className="form-group mr-sm-2">
-                    <br></br>
-                      <input
-                        id="priceInput"
-                        type="text"
-                        ref={(input) => { this.priceInput = input }}
-                        className="form-control"
-                        placeholder="Enter price in Eth ..."
-                        required />
-                  </div>
-                <button type="submit" className="btn btn-primary btn-block btn-lg">Upload</button>
-              </form>
-
+              <MemeMaker upload={this.props.uploadImage} />
 
               <hr />
               <p>&nbsp;</p>
