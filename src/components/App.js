@@ -1,9 +1,14 @@
-import TokenArt from '../abis/TokenArt.json'
+import TokenArt from '../abis/MemeArt.json'
 import React, { Component } from 'react';
 import Navbar from './Navbar'
 import Main from './Main'
 import Web3 from 'web3';
 import './App.css';
+
+const { RelayProvider } = require("@opengsn/gsn")
+const relayHubAddress = require('../gsn/RelayHub.json').address
+const stakeManagerAddress = require('../gsn/StakeManager.json').address
+const paymasterAddress = require('../gsn/Paymaster.json').address
 
 //Declare IPFS
 const ipfsClient = require('ipfs-http-client')
@@ -18,12 +23,28 @@ class App extends Component {
 
   async loadWeb3() {
     if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
+      // window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
+      // const tmpProvider = new ethers.providers.Web3Provider(window.ethereum);
+      // network = await tmpProvider.ready
+      const gsnConfig = {
+        relayHubAddress,
+        paymasterAddress,
+        stakeManagerAddress,
+        methodSuffix: '_v4',
+        jsonStringifyRequest: true,
+        // TODO: this is actually a reported bug in MetaMask. Should be:
+        // chainId: network.chainId
+        // but chainID == networkId on top ethereum networks. See https://chainid.network/
+        // chainId: window.ethereum.networkVersion
+        chainId: 1337
+      }
+      const gsnProvider = new RelayProvider(window.ethereum, gsnConfig);
+      window.web3 = new Web3(gsnProvider);
     }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    }
+    // else if (window.web3) {
+    //   window.web3 = new Web3(window.web3.currentProvider)
+    // }
     else {
       window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }

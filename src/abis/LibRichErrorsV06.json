@@ -1,0 +1,961 @@
+{
+  "contractName": "LibRichErrorsV06",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol\":\"LibRichErrorsV06\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol\":{\"keccak256\":\"0xe3bb5df566a92b15bc1b681965f7b7279bb81b044ab3beac47a8f193b2510c84\",\"urls\":[\"bzz-raw://e680ff51e6a01984fcfa6b89269409736fe2a40688b73dd295e4a2b11543e359\",\"dweb:/ipfs/Qmew3pXCnUpUGbZH8Bx9PBSeyHzF8N7W2Dmj2qNg2qVv5W\"]}},\"version\":1}",
+  "bytecode": "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220c05019b76cf16aac75f777542f3d04b698ff1685eb53b3a20428900bef63f74864736f6c634300060c0033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220c05019b76cf16aac75f777542f3d04b698ff1685eb53b3a20428900bef63f74864736f6c634300060c0033",
+  "immutableReferences": {},
+  "sourceMap": "606:1058:4:-:0;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "606:1058:4:-:0;;;;;;;;",
+  "source": "/*\n\n  Copyright 2020 ZeroEx Intl.\n\n  Licensed under the Apache License, Version 2.0 (the \"License\");\n  you may not use this file except in compliance with the License.\n  You may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n\n*/\n\npragma solidity ^0.6.2;\n\n\nlibrary LibRichErrorsV06 {\n\n    // bytes4(keccak256(\"Error(string)\"))\n    bytes4 internal constant STANDARD_ERROR_SELECTOR = 0x08c379a0;\n\n    // solhint-disable func-name-mixedcase\n    /// @dev ABI encode a standard, string revert error payload.\n    ///      This is the same payload that would be included by a `revert(string)`\n    ///      solidity statement. It has the function signature `Error(string)`.\n    /// @param message The error string.\n    /// @return The ABI encoded error.\n    function StandardError(string memory message)\n        internal\n        pure\n        returns (bytes memory)\n    {\n        return abi.encodeWithSelector(\n            STANDARD_ERROR_SELECTOR,\n            bytes(message)\n        );\n    }\n    // solhint-enable func-name-mixedcase\n\n    /// @dev Reverts an encoded rich revert reason `errorData`.\n    /// @param errorData ABI encoded error data.\n    function rrevert(bytes memory errorData)\n        internal\n        pure\n    {\n        assembly {\n            revert(add(errorData, 0x20), mload(errorData))\n        }\n    }\n}\n",
+  "sourcePath": "@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol",
+  "ast": {
+    "absolutePath": "@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol",
+    "exportedSymbols": {
+      "LibRichErrorsV06": [
+        744
+      ]
+    },
+    "id": 745,
+    "license": null,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 714,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "580:23:4"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 744,
+        "linearizedBaseContracts": [
+          744
+        ],
+        "name": "LibRichErrorsV06",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 717,
+            "mutability": "constant",
+            "name": "STANDARD_ERROR_SELECTOR",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 744,
+            "src": "680:61:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes4",
+              "typeString": "bytes4"
+            },
+            "typeName": {
+              "id": 715,
+              "name": "bytes4",
+              "nodeType": "ElementaryTypeName",
+              "src": "680:6:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes4",
+                "typeString": "bytes4"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30783038633337396130",
+              "id": 716,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "731:10:4",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_147028384_by_1",
+                "typeString": "int_const 147028384"
+              },
+              "value": "0x08c379a0"
+            },
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 734,
+              "nodeType": "Block",
+              "src": "1210:121:4",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 727,
+                        "name": "STANDARD_ERROR_SELECTOR",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 717,
+                        "src": "1263:23:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes4",
+                          "typeString": "bytes4"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 730,
+                            "name": "message",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 720,
+                            "src": "1306:7:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_string_memory_ptr",
+                              "typeString": "string memory"
+                            }
+                          ],
+                          "id": 729,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "1300:5:4",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_bytes_storage_ptr_$",
+                            "typeString": "type(bytes storage pointer)"
+                          },
+                          "typeName": {
+                            "id": 728,
+                            "name": "bytes",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "1300:5:4",
+                            "typeDescriptions": {
+                              "typeIdentifier": null,
+                              "typeString": null
+                            }
+                          }
+                        },
+                        "id": 731,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1300:14:4",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes4",
+                          "typeString": "bytes4"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 725,
+                        "name": "abi",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -1,
+                        "src": "1227:3:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_abi",
+                          "typeString": "abi"
+                        }
+                      },
+                      "id": 726,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "encodeWithSelector",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1227:22:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_abiencodewithselector_pure$_t_bytes4_$returns$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes4) pure returns (bytes memory)"
+                      }
+                    },
+                    "id": 732,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1227:97:4",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_memory_ptr",
+                      "typeString": "bytes memory"
+                    }
+                  },
+                  "functionReturnParameters": 724,
+                  "id": 733,
+                  "nodeType": "Return",
+                  "src": "1220:104:4"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 718,
+              "nodeType": "StructuredDocumentation",
+              "src": "791:303:4",
+              "text": "@dev ABI encode a standard, string revert error payload.\n      This is the same payload that would be included by a `revert(string)`\n      solidity statement. It has the function signature `Error(string)`.\n @param message The error string.\n @return The ABI encoded error."
+            },
+            "id": 735,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "StandardError",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 721,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 720,
+                  "mutability": "mutable",
+                  "name": "message",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 735,
+                  "src": "1122:21:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 719,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1122:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1121:23:4"
+            },
+            "returnParameters": {
+              "id": 724,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 723,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 735,
+                  "src": "1192:12:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 722,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1192:5:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1191:14:4"
+            },
+            "scope": 744,
+            "src": "1099:232:4",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 742,
+              "nodeType": "Block",
+              "src": "1567:95:4",
+              "statements": [
+                {
+                  "AST": {
+                    "nodeType": "YulBlock",
+                    "src": "1586:70:4",
+                    "statements": [
+                      {
+                        "expression": {
+                          "arguments": [
+                            {
+                              "arguments": [
+                                {
+                                  "name": "errorData",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "1611:9:4"
+                                },
+                                {
+                                  "kind": "number",
+                                  "nodeType": "YulLiteral",
+                                  "src": "1622:4:4",
+                                  "type": "",
+                                  "value": "0x20"
+                                }
+                              ],
+                              "functionName": {
+                                "name": "add",
+                                "nodeType": "YulIdentifier",
+                                "src": "1607:3:4"
+                              },
+                              "nodeType": "YulFunctionCall",
+                              "src": "1607:20:4"
+                            },
+                            {
+                              "arguments": [
+                                {
+                                  "name": "errorData",
+                                  "nodeType": "YulIdentifier",
+                                  "src": "1635:9:4"
+                                }
+                              ],
+                              "functionName": {
+                                "name": "mload",
+                                "nodeType": "YulIdentifier",
+                                "src": "1629:5:4"
+                              },
+                              "nodeType": "YulFunctionCall",
+                              "src": "1629:16:4"
+                            }
+                          ],
+                          "functionName": {
+                            "name": "revert",
+                            "nodeType": "YulIdentifier",
+                            "src": "1600:6:4"
+                          },
+                          "nodeType": "YulFunctionCall",
+                          "src": "1600:46:4"
+                        },
+                        "nodeType": "YulExpressionStatement",
+                        "src": "1600:46:4"
+                      }
+                    ]
+                  },
+                  "evmVersion": "istanbul",
+                  "externalReferences": [
+                    {
+                      "declaration": 738,
+                      "isOffset": false,
+                      "isSlot": false,
+                      "src": "1611:9:4",
+                      "valueSize": 1
+                    },
+                    {
+                      "declaration": 738,
+                      "isOffset": false,
+                      "isSlot": false,
+                      "src": "1635:9:4",
+                      "valueSize": 1
+                    }
+                  ],
+                  "id": 741,
+                  "nodeType": "InlineAssembly",
+                  "src": "1577:79:4"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 736,
+              "nodeType": "StructuredDocumentation",
+              "src": "1379:108:4",
+              "text": "@dev Reverts an encoded rich revert reason `errorData`.\n @param errorData ABI encoded error data."
+            },
+            "id": 743,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "rrevert",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 739,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 738,
+                  "mutability": "mutable",
+                  "name": "errorData",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 743,
+                  "src": "1509:22:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 737,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1509:5:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1508:24:4"
+            },
+            "returnParameters": {
+              "id": 740,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1567:0:4"
+            },
+            "scope": 744,
+            "src": "1492:170:4",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 745,
+        "src": "606:1058:4"
+      }
+    ],
+    "src": "580:1085:4"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "@opengsn/gsn/contracts/0x/errors/LibRichErrorsV06.sol",
+      "exportedSymbols": {
+        "LibRichErrorsV06": [
+          744
+        ]
+      },
+      "license": null
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.6",
+            ".2"
+          ]
+        },
+        "id": 714,
+        "name": "PragmaDirective",
+        "src": "580:23:4"
+      },
+      {
+        "attributes": {
+          "abstract": false,
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "library",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            744
+          ],
+          "name": "LibRichErrorsV06",
+          "scope": 745
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": true,
+              "mutability": "constant",
+              "name": "STANDARD_ERROR_SELECTOR",
+              "overrides": null,
+              "scope": 744,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "bytes4",
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "bytes4",
+                  "type": "bytes4"
+                },
+                "id": 715,
+                "name": "ElementaryTypeName",
+                "src": "680:6:4"
+              },
+              {
+                "attributes": {
+                  "argumentTypes": null,
+                  "hexvalue": "30783038633337396130",
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "lValueRequested": false,
+                  "subdenomination": null,
+                  "token": "number",
+                  "type": "int_const 147028384",
+                  "value": "0x08c379a0"
+                },
+                "id": 716,
+                "name": "Literal",
+                "src": "731:10:4"
+              }
+            ],
+            "id": 717,
+            "name": "VariableDeclaration",
+            "src": "680:61:4"
+          },
+          {
+            "attributes": {
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "StandardError",
+              "overrides": null,
+              "scope": 744,
+              "stateMutability": "pure",
+              "virtual": false,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "text": "@dev ABI encode a standard, string revert error payload.\n      This is the same payload that would be included by a `revert(string)`\n      solidity statement. It has the function signature `Error(string)`.\n @param message The error string.\n @return The ABI encoded error."
+                },
+                "id": 718,
+                "name": "StructuredDocumentation",
+                "src": "791:303:4"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "message",
+                      "overrides": null,
+                      "scope": 735,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "string",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "string",
+                          "type": "string"
+                        },
+                        "id": 719,
+                        "name": "ElementaryTypeName",
+                        "src": "1122:6:4"
+                      }
+                    ],
+                    "id": 720,
+                    "name": "VariableDeclaration",
+                    "src": "1122:21:4"
+                  }
+                ],
+                "id": 721,
+                "name": "ParameterList",
+                "src": "1121:23:4"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "",
+                      "overrides": null,
+                      "scope": 735,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 722,
+                        "name": "ElementaryTypeName",
+                        "src": "1192:5:4"
+                      }
+                    ],
+                    "id": 723,
+                    "name": "VariableDeclaration",
+                    "src": "1192:12:4"
+                  }
+                ],
+                "id": 724,
+                "name": "ParameterList",
+                "src": "1191:14:4"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 724
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "tryCall": false,
+                          "type": "bytes memory",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bytes4",
+                                  "typeString": "bytes4"
+                                },
+                                {
+                                  "typeIdentifier": "t_bytes_memory_ptr",
+                                  "typeString": "bytes memory"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "member_name": "encodeWithSelector",
+                              "referencedDeclaration": null,
+                              "type": "function (bytes4) pure returns (bytes memory)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": -1,
+                                  "type": "abi",
+                                  "value": "abi"
+                                },
+                                "id": 725,
+                                "name": "Identifier",
+                                "src": "1227:3:4"
+                              }
+                            ],
+                            "id": 726,
+                            "name": "MemberAccess",
+                            "src": "1227:22:4"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 717,
+                              "type": "bytes4",
+                              "value": "STANDARD_ERROR_SELECTOR"
+                            },
+                            "id": 727,
+                            "name": "Identifier",
+                            "src": "1263:23:4"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "tryCall": false,
+                              "type": "bytes memory",
+                              "type_conversion": true
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_string_memory_ptr",
+                                      "typeString": "string memory"
+                                    }
+                                  ],
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "lValueRequested": false,
+                                  "type": "type(bytes storage pointer)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "name": "bytes",
+                                      "type": null
+                                    },
+                                    "id": 728,
+                                    "name": "ElementaryTypeName",
+                                    "src": "1300:5:4"
+                                  }
+                                ],
+                                "id": 729,
+                                "name": "ElementaryTypeNameExpression",
+                                "src": "1300:5:4"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 720,
+                                  "type": "string memory",
+                                  "value": "message"
+                                },
+                                "id": 730,
+                                "name": "Identifier",
+                                "src": "1306:7:4"
+                              }
+                            ],
+                            "id": 731,
+                            "name": "FunctionCall",
+                            "src": "1300:14:4"
+                          }
+                        ],
+                        "id": 732,
+                        "name": "FunctionCall",
+                        "src": "1227:97:4"
+                      }
+                    ],
+                    "id": 733,
+                    "name": "Return",
+                    "src": "1220:104:4"
+                  }
+                ],
+                "id": 734,
+                "name": "Block",
+                "src": "1210:121:4"
+              }
+            ],
+            "id": 735,
+            "name": "FunctionDefinition",
+            "src": "1099:232:4"
+          },
+          {
+            "attributes": {
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "rrevert",
+              "overrides": null,
+              "scope": 744,
+              "stateMutability": "pure",
+              "virtual": false,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "text": "@dev Reverts an encoded rich revert reason `errorData`.\n @param errorData ABI encoded error data."
+                },
+                "id": 736,
+                "name": "StructuredDocumentation",
+                "src": "1379:108:4"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "errorData",
+                      "overrides": null,
+                      "scope": 743,
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "type": "bytes",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes",
+                          "type": "bytes"
+                        },
+                        "id": 737,
+                        "name": "ElementaryTypeName",
+                        "src": "1509:5:4"
+                      }
+                    ],
+                    "id": 738,
+                    "name": "VariableDeclaration",
+                    "src": "1509:22:4"
+                  }
+                ],
+                "id": 739,
+                "name": "ParameterList",
+                "src": "1508:24:4"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 740,
+                "name": "ParameterList",
+                "src": "1567:0:4"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "evmVersion": "istanbul",
+                      "externalReferences": [
+                        {
+                          "declaration": 738,
+                          "isOffset": false,
+                          "isSlot": false,
+                          "src": "1611:9:4",
+                          "valueSize": 1
+                        },
+                        {
+                          "declaration": 738,
+                          "isOffset": false,
+                          "isSlot": false,
+                          "src": "1635:9:4",
+                          "valueSize": 1
+                        }
+                      ],
+                      "operations": "{\n    revert(add(errorData, 0x20), mload(errorData))\n}"
+                    },
+                    "children": [],
+                    "id": 741,
+                    "name": "InlineAssembly",
+                    "src": "1577:79:4"
+                  }
+                ],
+                "id": 742,
+                "name": "Block",
+                "src": "1567:95:4"
+              }
+            ],
+            "id": 743,
+            "name": "FunctionDefinition",
+            "src": "1492:170:4"
+          }
+        ],
+        "id": 744,
+        "name": "ContractDefinition",
+        "src": "606:1058:4"
+      }
+    ],
+    "id": 745,
+    "name": "SourceUnit",
+    "src": "580:1085:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.12+commit.27d51765.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-05-27T20:11:12.622Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

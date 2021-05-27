@@ -1,0 +1,438 @@
+{
+  "contractName": "IRelayRecipient",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "getTrustedForwarder",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"getTrustedForwarder\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getTrustedForwarder()\":{\"notice\":\"return the forwarder we trust to forward relayed transactions to us. the forwarder is required to verify the sender's signature, and verify the call is not a replay.\"}},\"notice\":\"a contract must implement this interface in order to support relayed transaction. It is better to inherit the BaseRelayRecipient as its implementation.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"@opengsn/gsn/contracts/interfaces/IRelayRecipient.sol\":\"IRelayRecipient\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@opengsn/gsn/contracts/interfaces/IRelayRecipient.sol\":{\"keccak256\":\"0x6ccb49ede883eb865ce03ceb8f9e9d41f5b0fd25d910d3fedaf5fd2ffc0eeb4d\",\"urls\":[\"bzz-raw://1e1cb382ef511f9a0f5d9971ed09423bcbe437e81a98ddc0f2141f7d392ad2d7\",\"dweb:/ipfs/QmNPTcD68AFgXnyeF3NncPTzymBQY7ptEfdjQNUpSFWhQJ\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.6.2;\n\n/**\n * a contract must implement this interface in order to support relayed transaction.\n * It is better to inherit the BaseRelayRecipient as its implementation.\n */\nabstract contract IRelayRecipient {\n\n    /**\n     * return the forwarder we trust to forward relayed transactions to us.\n     * the forwarder is required to verify the sender's signature, and verify\n     * the call is not a replay.\n     */\n    function getTrustedForwarder() public virtual view returns(address);\n\n    /**\n     * return the sender of this call.\n     * if the call came through our trusted forwarder, then the real sender is appended as the last 20 bytes\n     * of the msg.data.\n     * otherwise, return `msg.sender`\n     * should be used in the contract anywhere instead of msg.sender\n     */\n    function _msgSender() internal virtual view returns (address payable);\n}\n",
+  "sourcePath": "@opengsn/gsn/contracts/interfaces/IRelayRecipient.sol",
+  "ast": {
+    "absolutePath": "@opengsn/gsn/contracts/interfaces/IRelayRecipient.sol",
+    "exportedSymbols": {
+      "IRelayRecipient": [
+        839
+      ]
+    },
+    "id": 840,
+    "license": null,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 825,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:6"
+      },
+      {
+        "abstract": true,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 826,
+          "nodeType": "StructuredDocumentation",
+          "src": "25:165:6",
+          "text": " a contract must implement this interface in order to support relayed transaction.\n It is better to inherit the BaseRelayRecipient as its implementation."
+        },
+        "fullyImplemented": false,
+        "id": 839,
+        "linearizedBaseContracts": [
+          839
+        ],
+        "name": "IRelayRecipient",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": {
+              "id": 827,
+              "nodeType": "StructuredDocumentation",
+              "src": "232:198:6",
+              "text": " return the forwarder we trust to forward relayed transactions to us.\n the forwarder is required to verify the sender's signature, and verify\n the call is not a replay."
+            },
+            "functionSelector": "ce1b815f",
+            "id": 832,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getTrustedForwarder",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 828,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "463:2:6"
+            },
+            "returnParameters": {
+              "id": 831,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 830,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 832,
+                  "src": "494:7:6",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 829,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "494:7:6",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "493:9:6"
+            },
+            "scope": 839,
+            "src": "435:68:6",
+            "stateMutability": "view",
+            "virtual": true,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": {
+              "id": 833,
+              "nodeType": "StructuredDocumentation",
+              "src": "509:290:6",
+              "text": " return the sender of this call.\n if the call came through our trusted forwarder, then the real sender is appended as the last 20 bytes\n of the msg.data.\n otherwise, return `msg.sender`\n should be used in the contract anywhere instead of msg.sender"
+            },
+            "id": 838,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_msgSender",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 834,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "823:2:6"
+            },
+            "returnParameters": {
+              "id": 837,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 836,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 838,
+                  "src": "857:15:6",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address_payable",
+                    "typeString": "address payable"
+                  },
+                  "typeName": {
+                    "id": 835,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "857:15:6",
+                    "stateMutability": "payable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address_payable",
+                      "typeString": "address payable"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "856:17:6"
+            },
+            "scope": 839,
+            "src": "804:70:6",
+            "stateMutability": "view",
+            "virtual": true,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 840,
+        "src": "191:685:6"
+      }
+    ],
+    "src": "0:877:6"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "@opengsn/gsn/contracts/interfaces/IRelayRecipient.sol",
+      "exportedSymbols": {
+        "IRelayRecipient": [
+          839
+        ]
+      },
+      "license": null
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.6",
+            ".2"
+          ]
+        },
+        "id": 825,
+        "name": "PragmaDirective",
+        "src": "0:23:6"
+      },
+      {
+        "attributes": {
+          "abstract": true,
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            839
+          ],
+          "name": "IRelayRecipient",
+          "scope": 840
+        },
+        "children": [
+          {
+            "attributes": {
+              "text": " a contract must implement this interface in order to support relayed transaction.\n It is better to inherit the BaseRelayRecipient as its implementation."
+            },
+            "id": 826,
+            "name": "StructuredDocumentation",
+            "src": "25:165:6"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "functionSelector": "ce1b815f",
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "getTrustedForwarder",
+              "overrides": null,
+              "scope": 839,
+              "stateMutability": "view",
+              "virtual": true,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "text": " return the forwarder we trust to forward relayed transactions to us.\n the forwarder is required to verify the sender's signature, and verify\n the call is not a replay."
+                },
+                "id": 827,
+                "name": "StructuredDocumentation",
+                "src": "232:198:6"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 828,
+                "name": "ParameterList",
+                "src": "463:2:6"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "",
+                      "overrides": null,
+                      "scope": 832,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "nonpayable",
+                          "type": "address"
+                        },
+                        "id": 829,
+                        "name": "ElementaryTypeName",
+                        "src": "494:7:6"
+                      }
+                    ],
+                    "id": 830,
+                    "name": "VariableDeclaration",
+                    "src": "494:7:6"
+                  }
+                ],
+                "id": 831,
+                "name": "ParameterList",
+                "src": "493:9:6"
+              }
+            ],
+            "id": 832,
+            "name": "FunctionDefinition",
+            "src": "435:68:6"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "implemented": false,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "_msgSender",
+              "overrides": null,
+              "scope": 839,
+              "stateMutability": "view",
+              "virtual": true,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "text": " return the sender of this call.\n if the call came through our trusted forwarder, then the real sender is appended as the last 20 bytes\n of the msg.data.\n otherwise, return `msg.sender`\n should be used in the contract anywhere instead of msg.sender"
+                },
+                "id": 833,
+                "name": "StructuredDocumentation",
+                "src": "509:290:6"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 834,
+                "name": "ParameterList",
+                "src": "823:2:6"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "mutability": "mutable",
+                      "name": "",
+                      "overrides": null,
+                      "scope": 838,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address payable",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "stateMutability": "payable",
+                          "type": "address payable"
+                        },
+                        "id": 835,
+                        "name": "ElementaryTypeName",
+                        "src": "857:15:6"
+                      }
+                    ],
+                    "id": 836,
+                    "name": "VariableDeclaration",
+                    "src": "857:15:6"
+                  }
+                ],
+                "id": 837,
+                "name": "ParameterList",
+                "src": "856:17:6"
+              }
+            ],
+            "id": 838,
+            "name": "FunctionDefinition",
+            "src": "804:70:6"
+          }
+        ],
+        "id": 839,
+        "name": "ContractDefinition",
+        "src": "191:685:6"
+      }
+    ],
+    "id": 840,
+    "name": "SourceUnit",
+    "src": "0:877:6"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.12+commit.27d51765.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-05-27T20:11:12.627Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "getTrustedForwarder()": {
+        "notice": "return the forwarder we trust to forward relayed transactions to us. the forwarder is required to verify the sender's signature, and verify the call is not a replay."
+      }
+    },
+    "notice": "a contract must implement this interface in order to support relayed transaction. It is better to inherit the BaseRelayRecipient as its implementation.",
+    "version": 1
+  }
+}
